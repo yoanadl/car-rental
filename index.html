@@ -1,46 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Car Rental</title>
-    <h1> Car Rental</h1>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-  </head>
+    <title>Rent EV with Us</title>
+
+    <script src="https://kit.fontawesome.com/f727d1933e.js" crossorigin="anonymous"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
+        
+        body {
+            background-color: #7FC8F8;
+
+            /* Fonts */
+            font-family: 'Afacad Flux', sans-serif;
+
+            display: flex;
+            flex-direction: column;  
+            align-items: center;      
+            justify-content: center;   
+            height: 100vh;            
+            margin: 0;                
+        }
+
+        h1 {
+            font-size: 64px;
+            color: white;
+            margin: 20px 0;           
+            opacity: 0;               
+            animation: fadeIn 3s ease-in forwards; 
+        }
+
+        p {
+            font-size: 24px;          
+            color: white;
+            text-align: center;       
+            margin: 10px 0;          
+        }
+
+        .logo {
+            display:flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        i {
+            animation: blink 1s step-start 0s;
+            animation-iteration-count: 5; 
+        }
+
+        /* Keyframes for the fade-in effect */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0; /* Start invisible */
+            }
+            100% {
+                opacity: 1; /* End fully visible */
+            }
+        }
+
+        /* Keyframes for the blinking effect */
+        @keyframes blink {
+            50% {
+                opacity: 0.0;
+            }
+        }
+        
+    </style>
+</head>
 
 
-
-  <body>
-    <main>
-     
-        <h2> Car type</h2>
-        <li> Type 1 </li>
-        <li> Type 2</li>
-
-        <h2> Payment </h2>
-
-        <h2> About Us</h2>
-
-        <h2> Insurance </h2>
-
-        <h2> Location </h2>
-
-        <h2> How does this work </h2>
-
-        <h2> Review </h2>
+<body>
 
 
+  <div class="logo"> 
+    <h1> PureVolts</h1>
+    <i class="fa-solid fa-bolt fa-2xl" style="color: #FFE45E;"></i>   
+  </div>
 
-    </main>
-
+    <p>Book your EV with us — with just a simple click below</p>
     
-    <script src="index.js"></script>
+</body>
 
-    <h1> Footer</h1>
-    <p> Our this and that, website, contact list, etc</p>
-
-  </body>
 
 </html>
