@@ -1,0 +1,228 @@
+
+/*  DETAILS
+
+colors
+
+#86CB92 - ijo
+#71B48D - ijo lebih teal
+#404E7C - biru
+#251F47 - biru ungu
+#260F26 - ungu
+
+font
+
+
+ini shadow buat box
+box-shadow: 1px 5px 60px 0px white; 
+
+
+
+
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
+
+
+* {
+    box-sizing: border-box;
+    font-family: 'Afacad Flux';
+    margin: 0;
+    padding: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+html, body {
+    margin: 0;  
+    padding: 0; 
+    box-sizing: border-box;
+    height: 100%; 
+    width: 100%;
+    background-color: white;
+    position: relative;
+}
+
+
+
+header {
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    top: 0;
+    right: 0px;
+    left: 0px;
+    z-index: 5;
+
+    background-color: #251F47;
+    width: 100%;
+    height: auto;
+    padding: 30px 30px;
+}
+
+header h1{
+    margin: 0;
+    font-size: 36px;
+    color: white;
+    padding-bottom: 10px;
+}
+
+
+header nav a {
+    font-size: 1.45em;
+    font-weight: 600;
+    margin-left: 15px;
+    padding: 5px 8px;
+    text-decoration: none;
+    color: #71B48D;
+    position: relative;
+}
+
+header nav a:first-child{
+    margin-left: 0;
+    padding: 0px;
+}
+
+.landing-page{
+
+    position: relative;
+    display: flex;
+    flex-direction: column;  
+    align-items: center;      
+    justify-content: center;   
+    height: 100vh;            
+    overflow: hidden;
+    background-color: rgb(189, 189, 189);
+  
+}
+
+.landing-bg{
+    position: absolute;   
+    width: 100%;
+    height: 100%;
+    object-fit: cover;     
+    opacity: 0.2;  
+    z-index: 1;        
+
+}
+
+.landing-page h1, p, button {
+    margin-block: 10px;
+}
+
+.landing-page h1 {
+    font-size: 64px;
+    font-weight: 800;
+    color: #251F47;
+    opacity: 1;
+    z-index: 2;
+}
+
+.landing-page p {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.landing-page button {
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #6cb189;
+    color: white;
+    border: 1px;
+    border-radius: 15px;
+    border-color: #5f9575;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.landing-page button:hover {
+    background-color: #423772;
+}
+
+.content{
+    padding: 30px;
+}
+
+.car-type {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;  
+    align-items: center;  
+
+}
+
+.car-type h1 {
+    font-size: 96px;
+    color:#251F47;
+    margin-bottom: 2%;
+}
+
+
+.card-container {
+    display: flex;
+    justify-content: space-between; 
+    gap: 20px;
+}
+
+/* From Uiverse.io by alexmaracinaru */ 
+.card {
+    width: 190px;
+    height: 254px;
+    background: #71B48D;
+    border-radius: 15px;
+   }
+   
+   .card .card-border-top {
+    width: 60%;
+    height: 3%;
+    background: #86CB92;
+    margin: auto;
+    border-radius: 0px 0px 15px 15px;
+   }
+   
+   .card span {
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    display: block;
+    padding-top: 10px;
+    font-size: 16px;
+   }
+   
+   .card .job {
+    font-weight: 400;
+    color: white;
+    display: block;
+    text-align: center;
+    padding-top: 3px;
+    font-size: 12px;
+   }
+   
+   .card .img {
+    width: 70px;
+    height: 80px;
+    background: #86CB92;
+    border-radius: 15px;
+    margin: auto;
+    margin-top: 25px;
+   }
+   
+   .card button {
+    padding: 8px 25px;
+    display: block;
+    margin: auto;
+    border-radius: 8px;
+    border: none;
+    margin-top: 30px;
+    background: #86CB92;
+    color: white;
+    font-weight: 600;
+   }
+   
+   /* .card button:hover {
+    background: #534bf3;
+   } */
