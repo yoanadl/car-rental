@@ -161,6 +161,17 @@ header nav a:first-child{
     margin-bottom: 2%;
 }
 
+.card-description {
+    min-height: 5rem;
+    max-height: 11rem;
+    max-width:max-content;
+    text-align: center;  
+    padding-bottom: 1em;
+
+    font-size: 1.5em;
+}
+
+
 
 .card-container {
     display: flex;
@@ -176,53 +187,50 @@ header nav a:first-child{
     border-radius: 15px;
    }
    
-   .card .card-border-top {
-    width: 60%;
-    height: 3%;
-    background: #86CB92;
-    margin: auto;
-    border-radius: 0px 0px 15px 15px;
-   }
-   
-   .card span {
-    font-weight: 600;
-    color: white;
-    text-align: center;
-    display: block;
-    padding-top: 10px;
-    font-size: 16px;
-   }
-   
-   .card .job {
-    font-weight: 400;
-    color: white;
-    display: block;
-    text-align: center;
-    padding-top: 3px;
-    font-size: 12px;
-   }
-   
-   .card .img {
-    width: 70px;
-    height: 80px;
-    background: #86CB92;
-    border-radius: 15px;
-    margin: auto;
-    margin-top: 25px;
-   }
-   
-   .card button {
-    padding: 8px 25px;
-    display: block;
-    margin: auto;
-    border-radius: 8px;
-    border: none;
-    margin-top: 30px;
-    background: #86CB92;
-    color: white;
-    font-weight: 600;
-   }
-   
-   /* .card button:hover {
-    background: #534bf3;
-   } */
+.card .card-border-top {
+width: 60%;
+height: 3%;
+background: #86CB92;
+margin: auto;
+border-radius: 0px 0px 15px 15px;
+}
+
+.card span {
+font-weight: 600;
+color: white;
+text-align: center;
+display: block;
+padding-top: 10px;
+font-size: 16px;
+}
+
+.card .job {
+font-weight: 400;
+color: white;
+display: block;
+text-align: center;
+padding-top: 3px;
+font-size: 12px;
+}
+
+.card .img {
+width: 70px;
+height: 80px;
+background: #86CB92;
+border-radius: 15px;
+margin: auto;
+margin-top: 25px;
+}
+
+.card button {
+padding: 8px 25px;
+display: block;
+margin: auto;
+border-radius: 8px;
+border: none;
+margin-top: 30px;
+background: #86CB92;
+color: white;
+font-weight: 600;
+}
+
