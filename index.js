@@ -28,14 +28,16 @@ window.addEventListener("scroll", function() {
 
 
 
-
-
 $(document).ready(function() {
+    // Activate Carousel
+    $("#myCarousel").carousel();
+    
+    // Generate carousel items dynamically from the cars array
     const cars = [
         { 
             name: "Car Type 1", 
             type: "Compact City EV", 
-            msg: "Perfect for Your Daily Drives! Our compact EV is designed to get you through the city with ease, offering efficiency, low costs, and eco-friendly commuting" 
+            msg: "Perfect for Your Daily Drives! Our compact EV is designed to get you through the city with ease, offering efficiency, low costs, and eco-friendly commuting"
         },
         { 
             name: "Car Type 2", 
@@ -49,59 +51,65 @@ $(document).ready(function() {
         }
     ];
 
-    const cardDescription = document.getElementById('cardDescription');
-    const carouselInner = document.getElementById('carouselInner');
-    const carouselIndicators = document.getElementById('carouselIndicators');
-
+    // Reference to the carousel inner div
+    const carouselInner = $(".carousel-inner");
+    const cardDescription = document.getElementById("cardDescription");
+    
+    // Loop through each car and create an item for the carousel
     cars.forEach((car, index) => {
-        const itemDiv = document.createElement('div');
-        itemDiv.classList.add('item');
-        if (index === 0) itemDiv.classList.add('active'); 
-
-        // Create image URL for each car
+        const isActive = index === 0 ? ' active' : ''; // Set the first item as active
+        
         const imageUrl = `https://via.placeholder.com/1600x1200?text=${encodeURIComponent(car.name)}`;
-        console.log('Car 3 Name:', cars[2].name);
 
-
-        itemDiv.innerHTML = `
-            <div class="card">
-                <div class="img">
-                    <img src="${imageUrl}" alt="${car.name}">
+        const itemHtml = `
+            <div class="item${isActive}">
+                    <img src="${imageUrl}" alt="${car.name}" >                
+                    <div class="carousel-caption">
+                    <h3>${car.name}</h3>
                 </div>
-                <span>${car.name}</span>
-                <p class="job">${car.type}</p>
-                <button>Book Now</button>
             </div>
         `;
 
-        carouselInner.appendChild(itemDiv);
+        carouselInner.append(itemHtml);
 
-        const indicator = document.createElement('li');
-        indicator.setAttribute('data-target', '#cardCarousel');
-        indicator.setAttribute('data-slide-to', index); 
-        if (index === 0) {
-            indicator.classList.add('active');
-            cardDescription.textContent = car.msg;
-        }
-
-        carouselIndicators.appendChild(indicator);
+        if (isActive) {
+            cardDescription.textContent = car.msg; 
+        }    
     });
 
-    $('#cardCarousel').on('slide.bs.carousel', function (event) {
-        const nextIndex = $(event.relatedTarget).index();  
-        const nextCar = cars[nextIndex];  
-        cardDescription.textContent = nextCar.msg;  
+    function updateDescription() {
+        const activeIndex = $(".carousel-inner .item.active").index(); // Get index of active item
+        cardDescription.textContent = cars[activeIndex].msg; // Update the message
+    }
+
+    // Initial description update
+    updateDescription();
+
+    // Update description on carousel slide change
+    $('#myCarousel').on('slid.bs.carousel', function() {
+        updateDescription(); // Call the update function
     });
 
-    $("#cardCarousel").carousel();
+    
 
+    // Enable Carousel Indicators
+    $(".item1").click(function() {
+        $("#myCarousel").carousel(0);
+    });
+    $(".item2").click(function() {
+        $("#myCarousel").carousel(1);
+    });
+    $(".item3").click(function() {
+        $("#myCarousel").carousel(2);
+    });
+
+    // Enable Carousel Controls
     $(".left").click(function(event) {
         event.preventDefault();
-        $("#cardCarousel").carousel("prev");
+        $("#myCarousel").carousel("prev");
     });
-
-    $(".right").click(function(event) {
+    $(".right").click(function() {
         event.preventDefault();
-        $("#cardCarousel").carousel("next");
+        $("#myCarousel").carousel("next");
     });
 });
