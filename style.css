@@ -46,7 +46,7 @@ html, body {
 
 
 
-header {
+#header {
     position: fixed;
     display: flex;
     flex-wrap: wrap;
@@ -61,13 +61,31 @@ header {
     width: 100%;
     height: auto;
     padding: 30px 30px;
+
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+}
+
+#header.visible{
+    opacity: 1;
+    pointer-events: all;
+}
+
+#header.hidden{
+    opacity: 0;
+    pointer-events: none;
 }
 
 header h1{
     margin: 0;
     font-size: 36px;
     color: white;
-    padding-bottom: 10px;
+    padding: 0 50 10 0;
+}
+
+header nav {
+    display: flex;
 }
 
 
@@ -75,7 +93,7 @@ header nav a {
     font-size: 1.45em;
     font-weight: 600;
     margin-left: 15px;
-    padding: 5px 8px;
+    /* padding: 5px 8px; */
     text-decoration: none;
     color: #71B48D;
     position: relative;
@@ -86,16 +104,40 @@ header nav a:first-child{
     padding: 0px;
 }
 
-.landing-page{
 
+@media (max-width: 768px) {
+    #header {
+        flex-wrap: wrap;  /* Allow wrapping on smaller screens */
+        padding: 20px 15px;  /* Reduce padding */
+    }
+
+    header h1 {
+        font-size: 28px;  /* Reduce font size */
+        padding-bottom: 10px;  /* Add bottom padding for spacing */
+    }
+
+    header nav {
+        flex-direction: column;  /* Stack nav links vertically */
+        width: 100%;  /* Take full width of the screen */
+        align-items: flex-start;  /* Align links to the left */
+    }
+
+    header nav a {
+        font-size: 1em;  /* Reduce font size for nav links */
+        margin: 6px 0;  /* Add margin between links */
+    }
+}
+
+.landing-page{
+    min-height: 100vh;
     position: relative;
     display: flex;
     flex-direction: column;  
     align-items: center;      
     justify-content: center;   
-    height: 100vh;            
     overflow: hidden;
     background-color: rgb(189, 189, 189);
+    margin-bottom: 50px;
   
 }
 
@@ -143,94 +185,207 @@ header nav a:first-child{
 }
 
 .content{
-    padding: 30px;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .car-type {
-    height: 100vh;
     position: relative;
     display: flex;
     flex-direction: column;  
     align-items: center;  
-
+    min-height: max-content;
+    height: 100vh;
 }
 
 .car-type h1 {
     font-size: 96px;
     color:#251F47;
-    margin-bottom: 2%;
+}
+
+.car-type {
+    max-width: 800px;
+    margin: auto;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    min-height: max-content;
+}
+
+.img img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.carousel-inner {
+    width: 100%; /* Ensure the inner carousel takes full width */
+}
+
+.carousel-item {
+    display: flex; /* Make the items flexible */
+    justify-content: center; /* Center items */
+    align-items: center; /* Center vertically if needed */
 }
 
 .card-description {
-    min-height: 5rem;
-    max-height: 11rem;
+    min-height: calc(20vh);
     max-width:max-content;
     text-align: center;  
-    padding-bottom: 1em;
-
     font-size: 1.5em;
+    padding-bottom: 20px;
+}
+
+.carousel {
+    position: relative;
+}
+
+.carousel-control{
+    background-color: white;
+    background-image: none; 
+
+    position: absolute;
+    top: 50%; 
+    z-index: 1; 
+    /* padding: 0 20px;  */
+}
+
+.left.carousel-control{
+    left: -10px;
+}
+
+.right.carousel-control{
+    right: -10px;
 }
 
 
 
-.card-container {
-    display: flex;
-    justify-content: space-between; 
-    gap: 20px;
+
+/* .item.active {
+    width: 100%;
+    background-color: #007bff;
 }
 
-/* From Uiverse.io by alexmaracinaru */ 
+
+
 .card {
-    width: 190px;
-    height: 254px;
+    width: 90%;
+    height: 0%;
     background: #71B48D;
     border-radius: 15px;
-   }
-   
-.card .card-border-top {
-width: 60%;
-height: 3%;
-background: #86CB92;
-margin: auto;
-border-radius: 0px 0px 15px 15px;
+    margin: 0 auto; 
+    
+    
 }
 
+
 .card span {
-font-weight: 600;
-color: white;
-text-align: center;
-display: block;
-padding-top: 10px;
-font-size: 16px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    display: block;
+    font-size: 16px;
 }
 
 .card .job {
-font-weight: 400;
-color: white;
-display: block;
-text-align: center;
-padding-top: 3px;
-font-size: 12px;
+    font-weight: 400;
+    color: white;
+    display: block;
+    text-align: center;
+    padding-top: 3px;
+    font-size: 12px;
 }
 
 .card .img {
-width: 70px;
-height: 80px;
-background: #86CB92;
-border-radius: 15px;
-margin: auto;
-margin-top: 25px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    width: 100%; 
+    height: auto; 
+    margin: auto; 
 }
+
+.card .img img {
+    max-width: 100%; 
+    height: auto;
+    border-radius: 15px; 
+}
+
 
 .card button {
-padding: 8px 25px;
-display: block;
-margin: auto;
-border-radius: 8px;
-border: none;
-margin-top: 30px;
-background: #86CB92;
-color: white;
-font-weight: 600;
+    padding: 8px 25px;
+    display: block;
+    margin: auto;
+    border-radius: 8px;
+    border: none;
+    margin-top: 30px;
+    background: #86CB92;
+    color: white;
+    font-weight: 600;
 }
 
+
+.card-carousel {
+    width: 70%;
+    margin: 0 auto;
+    position: relative;
+    background-color: #f8f9fa; 
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-inner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.carousel-inner .item {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 100%; 
+}
+
+.carousel-inner .item .card {
+    margin: 0 auto;
+}
+
+
+
+
+@media (max-width: 992px) {
+    .left.carousel-control {
+        left: 3vw; 
+    }
+    
+    .right.carousel-control {
+        right: 3vw; 
+    }
+}
+
+@media (max-width: 768px) {
+    .left.carousel-control {
+        left: 5vw; 
+    }
+    
+    .right.carousel-control {
+        right: 5vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .left.carousel-control {
+        left: 8vw; 
+    }
+    
+    .right.carousel-control {
+        right: 8vw;
+    }
+} */

@@ -7,6 +7,9 @@
     <title>AZoom Car Rental</title>
     <link rel="stylesheet" href="./style.css">
     <script src="./index.js" defer></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -35,12 +38,32 @@
 
         <!-- page 2 -->
         <div class="content">
+
+
             <div class="car-type">
                 <h1>Car Type</h1>
                 <p id="cardDescription" class="card-description"></p>   
             
-                <!-- Card container for people -->
-                <div id="cardContainer" class="card-container"></div>
+                <div id="cardCarousel" class="card-carousel carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators" id="carouselIndicators"></ol>
+                
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox" id="carouselInner"></div>
+                
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#cardCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#cardCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                
+            </div>
+            
+                 
             </div>
 
             <h2>Payment</h2>
@@ -57,6 +80,9 @@
         <h1>Footer</h1>
         <p>Our this and that, website, contact list, etc.</p>
     </footer>
+
+
+    
 
 
 
