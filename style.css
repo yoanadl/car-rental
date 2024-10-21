@@ -234,91 +234,57 @@ header nav a:first-child{
     align-items: center; /* Center vertically if needed */
 }
 
-.card-description {
-    min-height: calc(20vh);
-    max-width:max-content;
-    text-align: center;  
-    font-size: 1.5em;
-    padding-bottom: 20px;
+
+.card-container {
+    display: flex;
+    justify-content: space-between; 
+    gap: 20px;
 }
 
-.carousel {
-    position: relative;
-}
-
-.carousel-control{
-    background-color: white;
-    background-image: none; 
-
-    position: absolute;
-    top: 50%; 
-    z-index: 1; 
-    /* padding: 0 20px;  */
-}
-
-.left.carousel-control{
-    left: -10px;
-}
-
-.right.carousel-control{
-    right: -10px;
-}
-
-
-
-
-/* .item.active {
-    width: 100%;
-    background-color: #007bff;
-}
-
-
-
+/* From Uiverse.io by alexmaracinaru */ 
 .card {
     width: 90%;
     height: 0%;
     background: #71B48D;
     border-radius: 15px;
-    margin: 0 auto; 
-    
-    
-}
-
-
-.card span {
+   }
+   
+   .card .card-border-top {
+    width: 60%;
+    height: 3%;
+    background: #86CB92;
+    margin: auto;
+    border-radius: 0px 0px 15px 15px;
+   }
+   
+   .card span {
     font-weight: 600;
     color: white;
     text-align: center;
     display: block;
+    padding-top: 10px;
     font-size: 16px;
-}
-
-.card .job {
+   }
+   
+   .card .job {
     font-weight: 400;
     color: white;
     display: block;
     text-align: center;
     padding-top: 3px;
     font-size: 12px;
-}
-
-.card .img {
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    width: 100%; 
-    height: auto; 
-    margin: auto; 
-}
-
-.card .img img {
-    max-width: 100%; 
-    height: auto;
-    border-radius: 15px; 
-}
-
-
-.card button {
+   }
+   
+   .card .img {
+    width: 70px;
+    height: 80px;
+    background: #86CB92;
+    border-radius: 15px;
+    margin: auto;
+    margin-top: 25px;
+   }
+   
+   .card button {
     padding: 8px 25px;
     display: block;
     margin: auto;
@@ -328,64 +294,8 @@ header nav a:first-child{
     background: #86CB92;
     color: white;
     font-weight: 600;
-}
-
-
-.card-carousel {
-    width: 70%;
-    margin: 0 auto;
-    position: relative;
-    background-color: #f8f9fa; 
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.carousel-inner {
-    position: relative;
-    overflow: hidden;
-    border-radius: 15px;
-}
-
-.carousel-inner .item {
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    height: 100%; 
-}
-
-.carousel-inner .item .card {
-    margin: 0 auto;
-}
-
-
-
-
-@media (max-width: 992px) {
-    .left.carousel-control {
-        left: 3vw; 
-    }
-    
-    .right.carousel-control {
-        right: 3vw; 
-    }
-}
-
-@media (max-width: 768px) {
-    .left.carousel-control {
-        left: 5vw; 
-    }
-    
-    .right.carousel-control {
-        right: 5vw;
-    }
-}
-
-@media (max-width: 480px) {
-    .left.carousel-control {
-        left: 8vw; 
-    }
-    
-    .right.carousel-control {
-        right: 8vw;
-    }
-} */
+   }
+   
+   /* .card button:hover {
+    background: #534bf3;
+   } */
