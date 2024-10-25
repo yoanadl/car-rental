@@ -44,8 +44,7 @@ html, body {
     position: relative;
 }
 
-
-
+/* Existing styles for header */
 #header {
     position: fixed;
     display: flex;
@@ -53,8 +52,8 @@ html, body {
     align-items: center;
     justify-content: space-between;
     top: 0;
-    right: 0px;
-    left: 0px;
+    right: 0;
+    left: 0;
     z-index: 5;
 
     background-color: #251F47;
@@ -67,26 +66,28 @@ html, body {
     pointer-events: none;
 }
 
-#header.visible{
+#header.visible {
     opacity: 1;
     pointer-events: all;
 }
 
-#header.hidden{
+#header.hidden {
     opacity: 0;
     pointer-events: none;
 }
 
-header h1{
+header h1 {
     margin: 0;
     font-size: 36px;
     color: white;
-    padding: 0 50 10 0;
+    padding: 0 50px 10px 0;
+    cursor: pointer; /* Show pointer on hover */
 }
 
 header nav {
     display: flex;
 }
+
 
 
 header nav a {
@@ -104,27 +105,58 @@ header nav a:first-child{
     padding: 0px;
 }
 
+/* Style for the side navbar */
+#side-navbar {
+    position: fixed; /* Fixed position to stay on the screen */
+    top: 70px; /* Adjust based on header height */
+    left: 0; /* Align to the left */
+    background-color: #333; /* Background color */
+    color: white;
+    display: none; /* Initially hidden */
+    z-index: 1000; /* Ensure it's above other elements */
+    padding: 10px; /* Padding around links */
+}
 
+#side-navbar ul {
+    list-style: none;
+    padding: 0;
+}
+
+#side-navbar ul li {
+    padding: 10px 0; /* Padding for list items */
+}
+
+#side-navbar ul li a {
+    color: white; /* Link color */
+    text-decoration: none; /* Remove underline */
+}
+
+/* Show navbar when hovering over the title */
+#title:hover + #side-navbar {
+    display: block; /* Show the navbar */
+}
+
+/* Media Queries */
 @media (max-width: 768px) {
     #header {
-        flex-wrap: wrap;  /* Allow wrapping on smaller screens */
-        padding: 20px 15px;  /* Reduce padding */
+        flex-wrap: wrap;
+        padding: 20px 15px;
     }
 
     header h1 {
-        font-size: 28px;  /* Reduce font size */
-        padding-bottom: 10px;  /* Add bottom padding for spacing */
+        font-size: 28px;
+        padding-bottom: 10px;
     }
 
     header nav {
-        flex-direction: column;  /* Stack nav links vertically */
-        width: 100%;  /* Take full width of the screen */
-        align-items: flex-start;  /* Align links to the left */
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
     }
 
     header nav a {
-        font-size: 1em;  /* Reduce font size for nav links */
-        margin: 6px 0;  /* Add margin between links */
+        font-size: 1em;
+        margin: 6px 0;
     }
 }
 
@@ -203,18 +235,29 @@ header nav a:first-child{
     color:#251F47;
 }
 
-/* Card container styling */
-#cardContainer {
+/* Container for the entire carousel */
+.carousel-container {
     display: flex;
-    gap: 1rem;
-    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 80%; /* Adjust this to fit your layout */
+    margin: 20px auto;
   }
   
-  /* Card styling */
+  /* The carousel wrapper with cards inside */
+  .carousel {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    scroll-behavior: smooth;
+  }
+  
   .card {
+    flex: 0 0 200px; /* Cards will have a fixed width */
+    margin: 0 10px;
     border: 1px solid #ccc;
     padding: 1rem;
-    width: 200px;
     border-radius: 8px;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -222,7 +265,7 @@ header nav a:first-child{
     align-items: center;
     justify-content: space-between;
     min-height: 200px;
-    position: relative;
+    text-align: center;
   }
   
   /* Card title styling */
@@ -230,8 +273,12 @@ header nav a:first-child{
     font-weight: bold;
     text-align: center;
   }
+
+  .card-type {
+    text-align: center;
+  }
   
-  /* Indicator at the bottom */
+  /* Bullet-point indicator below the card */
   .indicator {
     margin-top: auto;
     display: flex;
@@ -240,34 +287,46 @@ header nav a:first-child{
     cursor: pointer;
   }
   
-  .indicator .bullet {
+  .bullet {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    margin-right: 0.5rem;
-    background-color: #ccc; /* Grey for unselected */
+    background-color: #ccc;
     transition: background-color 0.3s;
   }
   
   .selected .bullet {
-    background-color: #4caf50; /* Green for selected */
+    background-color: #4caf50;
   }
   
   .indicator span {
     font-weight: bold;
   }
   
+  /* Carousel navigation buttons */
+  .carousel-nav {
+    padding: 10px 15px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0 10px;
+  }
+  
   /* Single "This One" button below all cards */
   .global-button {
-    margin-top: 2rem;
-    padding: 0.7rem 1.5rem;
+    display: block;
+    width: 200px;
+    padding: 0.7rem;
+    margin: 20px auto;
     background-color: #4caf50;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    display: block;
     text-align: center;
   }
   

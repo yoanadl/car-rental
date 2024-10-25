@@ -16,7 +16,7 @@
 <body>
     <!-- header -->
     <header id="header" class="hidden">
-        <h1>AZoom Car Rental</h1>
+        <h1 id="title">AZoom Car Rental</h1>
         <nav class="nav">
             <a href="#">Pricing</a>
             <a href="#">Location</a>
@@ -25,6 +25,17 @@
         </nav>
     </header>
 
+    <!-- Side Navbar -->
+    <nav id="side-navbar" class="hidden">
+        <ul>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Location</a></li>
+            <li><a href="#">Insurance</a></li>
+            <li><a href="#">About Us</a></li>
+        </ul>
+    </nav>
+
+    
     <!-- pages -->
     <main>
         <!-- page 1 -->
@@ -41,7 +52,18 @@
 
             <div class="car-type">
                 <h1>Car Type</h1>
-                <div id="cardContainer"></div>
+
+                <div class="carousel-container">
+                    <button id="prevBtn" class="carousel-nav">Previous</button>
+                    <div id="cardCarousel" class="carousel">
+                      <!-- Cards will be generated dynamically here -->
+                    </div>
+                    <button id="nextBtn" class="carousel-nav">Next</button>
+                  </div>
+                  
+                  <!-- Global "This One" button below all cards -->
+                  <button id="globalButton" class="global-button">This One</button>
+                  
 
 
                 
