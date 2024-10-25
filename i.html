@@ -97,3 +97,30 @@
 
 
 </html> -->
+ <!-- Script to generate cards dynamically -->
+ <script>
+    // Array containing card data
+    const people = [
+        { name: "Person 1", job: "Job Title 1" },
+        { name: "Person 2", job: "Job Title 2" },
+        { name: "Person 3", job: "Job Title 3" }
+    ];
+
+    // Function to generate cards dynamically
+    const cardContainer = document.getElementById('cardContainer');
+
+    people.forEach(person => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+
+        card.innerHTML = `
+            <div class="card-border-top"></div>
+            <div class="img"></div>
+            <span>${person.name}</span>
+            <p class="job">${person.job}</p>
+            <button>Click</button>
+        `;
+
+        cardContainer.appendChild(card);
+    });
+</script>

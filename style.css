@@ -203,47 +203,76 @@ header nav a:first-child{
     color:#251F47;
 }
 
-#cardDescription{
-    min-height: calc(20vh);
-    max-width:max-content;
-    text-align: center;  
-    font-size: 1.5em;
-    padding-bottom: 20px;
-}
-
-
-/* carousel */
-
-.carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
-    width: 90%;
-    margin: auto;
-}
-
-/* carousel arrow */
-
-.carousel-control {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
+/* Card container styling */
+#cardContainer {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  /* Card styling */
+  .card {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    width: 200px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 200px;
+    position: relative;
+  }
+  
+  /* Card title styling */
+  .card-title {
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* Indicator at the bottom */
+  .indicator {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .indicator .bullet {
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    color: #423772;
-    background: none;
+    margin-right: 0.5rem;
+    background-color: #ccc; /* Grey for unselected */
+    transition: background-color 0.3s;
+  }
+  
+  .selected .bullet {
+    background-color: #4caf50; /* Green for selected */
+  }
+  
+  .indicator span {
+    font-weight: bold;
+  }
+  
+  /* Single "This One" button below all cards */
+  .global-button {
+    margin-top: 2rem;
+    padding: 0.7rem 1.5rem;
+    background-color: #4caf50;
+    color: white;
     border: none;
-    
-}
-
-.carousel-control.left,
-.carousel-control.right {
-    background: transparent !important; /* Force background to transparent */
-}
-
-.carousel-control.left {
-    left: -10vh;
-}
-
-.carousel-control.right {
-    right: -10vh;
-}
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+  }
+  
+  .global-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  

@@ -27,89 +27,79 @@ window.addEventListener("scroll", function() {
 });
 
 
-
-$(document).ready(function() {
-    // Activate Carousel
-    $("#myCarousel").carousel();
-    
-    // Generate carousel items dynamically from the cars array
-    const cars = [
-        { 
-            name: "Car Type 1", 
-            type: "Compact City EV", 
-            msg: "Perfect for Your Daily Drives! Our compact EV is designed to get you through the city with ease, offering efficiency, low costs, and eco-friendly commuting"
-        },
-        { 
-            name: "Car Type 2", 
-            type: "Long-Range EV", 
-            msg: "Built for the Long Haul! Our spacious EV is perfect for extended journeys, offering exceptional range, comfort, and advanced safety features to ensure you travel far with peace of mind and zero emissions" 
-        },
-        { 
-            name: "Car Type 3", 
-            type: "Family EV",
-            msg: "The Ideal Family EV! Designed with families in mind, our EV provides ample space, advanced safety systems, and kid-friendly features, ensuring comfortable and stress-free trips for everyone" 
-        }
-    ];
-
-    // Reference to the carousel inner div
-    const carouselInner = $(".carousel-inner");
-    const cardDescription = document.getElementById("cardDescription");
-    
-    // Loop through each car and create an item for the carousel
-    cars.forEach((car, index) => {
-        const isActive = index === 0 ? ' active' : ''; // Set the first item as active
-        
-        const imageUrl = `https://via.placeholder.com/1600x1200?text=${encodeURIComponent(car.name)}`;
-
-        const itemHtml = `
-            <div class="item${isActive}">
-                    <img src="${imageUrl}" alt="${car.name}" >                
-                    <div class="carousel-caption">
-                    <h3>${car.name}</h3>
-                </div>
-            </div>
-        `;
-
-        carouselInner.append(itemHtml);
-
-        if (isActive) {
-            cardDescription.textContent = car.msg; 
-        }    
+// Data for the cards
+const cardData = [
+    { title: "Card 1" },
+    { title: "Card 2" },
+    { title: "Card 3" }
+  ];
+  
+  // Reference to the card container
+  const cardContainer = document.getElementById("cardContainer");
+  
+  let selectedCard = null; // To store the selected card
+  
+  // Function to create a card
+  function createCard(card, cardIndex) {
+    // Create card element
+    const cardElement = document.createElement("div");
+    cardElement.className = "card";
+  
+    // Create title element
+    const titleElement = document.createElement("div");
+    titleElement.className = "card-title";
+    titleElement.innerText = card.title;
+    cardElement.appendChild(titleElement);
+  
+    // Create indicator at the bottom
+    const indicator = document.createElement("div");
+    indicator.className = "indicator";
+    const indicatorBullet = document.createElement("span");
+    indicatorBullet.className = "bullet"; // Unselected bullet
+    const indicatorText = document.createElement("span");
+    indicatorText.innerText = "Select";
+  
+    indicator.appendChild(indicatorBullet);
+    indicator.appendChild(indicatorText);
+  
+    // Add click event to the indicator
+    indicator.addEventListener("click", () => {
+      // Clear the previously selected card
+      if (selectedCard !== null) {
+        selectedCard.classList.remove("selected");
+      }
+      // Set the new selected card
+      cardElement.classList.add("selected");
+      selectedCard = cardElement;
+  
+      // Update the global button text
+      globalButton.disabled = false;
     });
-
-    function updateDescription() {
-        const activeIndex = $(".carousel-inner .item.active").index(); // Get index of active item
-        cardDescription.textContent = cars[activeIndex].msg; // Update the message
+  
+    // Append indicator to card
+    cardElement.appendChild(indicator);
+  
+    // Append card to card container
+    cardContainer.appendChild(cardElement);
+  }
+  
+  // Generate cards based on the data
+  cardData.forEach((card, index) => createCard(card, index));
+  
+  // Create single global button below all cards
+  const globalButton = document.createElement("button");
+  globalButton.className = "global-button";
+  globalButton.innerText = "This One";
+  globalButton.disabled = true; // Initially disabled
+  
+  // Add global event listener for button
+  globalButton.addEventListener("click", () => {
+    if (selectedCard !== null) {
+      const selectedCardTitle = selectedCard.querySelector(".card-title").innerText;
+      console.log("Selected card:", selectedCardTitle);
     }
-
-    // Initial description update
-    updateDescription();
-
-    // Update description on carousel slide change
-    $('#myCarousel').on('slid.bs.carousel', function() {
-        updateDescription(); // Call the update function
-    });
-
-    
-
-    // Enable Carousel Indicators
-    $(".item1").click(function() {
-        $("#myCarousel").carousel(0);
-    });
-    $(".item2").click(function() {
-        $("#myCarousel").carousel(1);
-    });
-    $(".item3").click(function() {
-        $("#myCarousel").carousel(2);
-    });
-
-    // Enable Carousel Controls
-    $(".left").click(function(event) {
-        event.preventDefault();
-        $("#myCarousel").carousel("prev");
-    });
-    $(".right").click(function() {
-        event.preventDefault();
-        $("#myCarousel").carousel("next");
-    });
-});
+  });
+  
+  // Append global button below card container
+  document.body.appendChild(globalButton);
+  
