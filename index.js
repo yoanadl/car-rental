@@ -39,107 +39,101 @@ title.addEventListener("mouseleave", function() {
     sideNavbar.style.display = 'none'; // Hide side navbar
 });
 
+// Hover event to show the side navbar
+title.addEventListener("mouseenter", function() {
+    sideNavbar.classList.remove("hidden");
+    sideNavbar.style.display = 'block'; // Show side navbar
+});
 
-// Data for the cards (more than 3 to test the carousel)
-const cardData = [
-  { title: "Tesla Models S", type: "BEV", link: "https://www.tesla.com/ownersmanual/images/GUID-5543BA62-932F-46C5-B1EF-44707D4726B2-online-en-US.png"},
-  { title: "Hyundai Sonata", type: "PHEV", link: "https://s7d1.scene7.com/is/image/hyundai/2024-sonata-n-line-serenity-white-conquest-hero:16-9?wid=640&hei=360&fmt=webp-alpha"},
-  { title: "Chevrolet Bolt", type: "BEV", link: "https://di-sitebuilder-assets.s3.amazonaws.com/GMimages/gmMLP/chevrolet/Bolt-EV/2021/LT.jpg" },
-  { title: "Toyota Prius", type: "HEV", link: "https://www.toyota.com.sg/showroom/new-models/-/media/4ec94a5afd6d4faab5973c826ef1770b.png" },
-  { title: "Ford E-Transit", type: "BEV", link: "https://cdn-www.pod-point.com/e1480704-1220-4fe1-a57a-28449caef137.png?v=1678889705"},
-  { title: "Audi A3 E-Tron", type: "PHEV", link: "https://platform.cstatic-images.com/large/in/v2/stock_photos/1bb05e0f-b6b2-44bd-93cb-93237755b458/e8c1ca57-cb5e-4aea-84a7-69b8376871de.png" },
-  { title: "Land Rover Range Rover PHEV", type: "PHEV", link: "https://cdn-www.pod-point.com/range-rover-velar-white-background.jpg?v=1639669195" },
-  { title: "Ford Fusion Hybrid", type: "HEV", link: "https://platform.cstatic-images.com/large/in/v2/stock_photos/3b081463-cf95-495f-9aad-d0ab8f97484f/687b006b-592e-41aa-b3aa-5508a60d1487.png" }
-];
+title.addEventListener("mouseleave", function() {
+    sideNavbar.classList.add("hidden");
+    sideNavbar.style.display = 'none'; // Hide side navbar
+});
 
-// Reference to the card container
-const cardCarousel = document.getElementById("cardCarousel");
 
-let selectedCard = null; // To store the selected card
-let currentIndex = 0; // Current index of the carousel
 
-const cardWidth = 240;
+$(document).ready(function() {
+    // Activate Carousel
+    $("#myCarousel").carousel();
+    
+    // Generate carousel items dynamically from the cars array
+    const cars = [
+        { 
+            name: "Car Type 1", 
+            type: "Compact City EV", 
+            msg: "Perfect for Your Daily Drives! Our compact EV is designed to get you through the city with ease, offering efficiency, low costs, and eco-friendly commuting"
+        },
+        { 
+            name: "Car Type 2", 
+            type: "Long-Range EV", 
+            msg: "Built for the Long Haul! Our spacious EV is perfect for extended journeys, offering exceptional range, comfort, and advanced safety features to ensure you travel far with peace of mind and zero emissions" 
+        },
+        { 
+            name: "Car Type 3", 
+            type: "Family EV",
+            msg: "The Ideal Family EV! Designed with families in mind, our EV provides ample space, advanced safety systems, and kid-friendly features, ensuring comfortable and stress-free trips for everyone" 
+        }
+    ];
 
-// Function to create a card
-function createCard(card) {
-  const cardElement = document.createElement("div");
-  cardElement.className = "card";
+    // Reference to the carousel inner div
+    const carouselInner = $(".carousel-inner");
+    const cardDescription = document.getElementById("cardDescription");
+    
+    // Loop through each car and create an item for the carousel
+    cars.forEach((car, index) => {
+        const isActive = index === 0 ? ' active' : ''; // Set the first item as active
+        
+        const imageUrl = `https://via.placeholder.com/1600x1200?text=${encodeURIComponent(car.name)}`;
 
-  const titleElement = document.createElement("div");
-  titleElement.className = "card-title";
-  titleElement.innerText = card.title;
-  cardElement.appendChild(titleElement);
+        const itemHtml = `
+            <div class="item${isActive}">
+                    <img src="${imageUrl}" alt="${car.name}" >                
+                    <div class="carousel-caption">
+                    <h3>${car.name}</h3>
+                </div>
+            </div>
+        `;
 
-  const imageElement = document.createElement("img");
-  imageElement.className = "card-image";
-  imageElement.src = card.link;
-  imageElement.alt = card.title;
-  cardElement.appendChild(imageElement);
+        carouselInner.append(itemHtml);
 
-  const typeElement = document.createElement("div");
-  typeElement.className = "card-type";
-  typeElement.innerText = card.type;
-  cardElement.appendChild(typeElement);
+        if (isActive) {
+            cardDescription.textContent = car.msg; 
+        }    
+    });
 
-  const indicator = document.createElement("div");
-  indicator.className = "indicator";
-  const indicatorBullet = document.createElement("span");
-  indicatorBullet.className = "bullet";
-  const indicatorText = document.createElement("span");
-  indicatorText.innerText = "Select";
-
-  indicator.appendChild(indicatorBullet);
-  indicator.appendChild(indicatorText);
-
-  indicator.addEventListener("click", () => {
-    if (selectedCard !== null) {
-      selectedCard.classList.remove("selected");
+    function updateDescription() {
+        const activeIndex = $(".carousel-inner .item.active").index(); // Get index of active item
+        cardDescription.textContent = cars[activeIndex].msg; // Update the message
     }
-    cardElement.classList.add("selected");
-    selectedCard = cardElement;
 
-    globalButton.disabled = false;
-  });
+    // Initial description update
+    updateDescription();
 
-  cardElement.appendChild(indicator);
+    // Update description on carousel slide change
+    $('#myCarousel').on('slid.bs.carousel', function() {
+        updateDescription(); // Call the update function
+    });
 
-  cardCarousel.appendChild(cardElement);
-}
+    
 
-// Generate the cards
-cardData.forEach((card) => createCard(card));
+    // Enable Carousel Indicators
+    $(".item1").click(function() {
+        $("#myCarousel").carousel(0);
+    });
+    $(".item2").click(function() {
+        $("#myCarousel").carousel(1);
+    });
+    $(".item3").click(function() {
+        $("#myCarousel").carousel(2);
+    });
 
-// Scroll function to display 3 cards at a time
-function scrollCarousel(direction) {
-  const totalCards = cardData.length;
-  const maxVisibleCards = 3;
-
-  // Calculate new index based on direction
-  if (direction === "next" && currentIndex < totalCards - maxVisibleCards) {
-    currentIndex += 1; // Move one card at a time
-  } else if (direction === "prev" && currentIndex > 0) {
-    currentIndex -= 1;
-  }
-
-  // Scroll to the new index
-  cardCarousel.scrollLeft = currentIndex * cardWidth;
-}
-
-// Event listeners for carousel navigation buttons
-document.getElementById("prevBtn").addEventListener("click", () => scrollCarousel("prev"));
-document.getElementById("nextBtn").addEventListener("click", () => scrollCarousel("next"));
-
-// Reference to the global button
-const globalButton = document.getElementById("globalButton");
-globalButton.disabled = true;
-
-// Event listener for the global button
-globalButton.addEventListener("click", () => {
-  if (selectedCard !== null) {
-    const selectedCardTitle = selectedCard.querySelector(".card-title").innerText;
-    console.log("Selected card:", selectedCardTitle);
-
-    // Redirect to booking.html
-    window.location.href = 'booking.html';
-  }
+    // Enable Carousel Controls
+    $(".left").click(function(event) {
+        event.preventDefault();
+        $("#myCarousel").carousel("prev");
+    });
+    $(".right").click(function() {
+        event.preventDefault();
+        $("#myCarousel").carousel("next");
+    });
 });
