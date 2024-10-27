@@ -233,49 +233,175 @@ header nav a:first-child{
 .car-type h1 {
     font-size: 96px;
     color:#251F47;
+    margin-bottom: 0.5em;
 }
 
-#cardDescription{
-    min-height: calc(20vh);
-    max-width:max-content;
-    text-align: center;  
-    font-size: 1.5em;
-    padding-bottom: 20px;
+/* Card container styling */
+#cardContainer {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  /* Card styling */
+  .card {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin: 0 8px 0 8px;
+    width: 300px;
+    height: 300px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 200px;
+    position: relative;
+  }
+  
+  /* Card title styling */
+  .card-title {
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .card-image {
+    max-width: 100%;     /* Ensures the image won't exceed the card width */
+    max-height: 150px;   /* Limits the height to keep images within a set area */
+    object-fit: contain; /* Ensures the entire image is visible within the bounds */
+    margin-top: 0.5rem;
 }
 
+  /* Indicator at the bottom */
+  .indicator {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
 
-/* carousel */
+  .indicator span {
+    font-weight: bold;
+  }
 
-.carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
-    width: 90%;
-    margin: auto;
+  .card.selected {
+    box-shadow: 1px 5px 30px 1px #86CB92; /* Apply shadow color when selected */
+    border: 1px solid #86CB92; /* Optional: add a border to highlight selection */
 }
 
-/* carousel arrow */
-
-.carousel-control {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    color: #423772;
-    background: none;
+  /* Single "This One" button below all cards */
+  .global-button {
+    display: block;
+    width: 200px;
+    padding: 0.7rem;
+    margin: 20px auto;
+    background-color: #4caf50;
+    color: white;
     border: none;
-    
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+  }
+
+
+/*location page  */
+
+.location {
+    position: relative;
+    display: flex;
+    flex-direction: column;  
+    align-items: center;  
+    min-height: max-content;
+    height: 100vh;
+    background-color: #251F47;
 }
 
-.carousel-control.left,
-.carousel-control.right {
-    background: transparent !important; /* Force background to transparent */
+.location h1 {
+    font-size: 96px;
+    color: white;
+    margin: 0.5em;
+
 }
 
-.carousel-control.left {
-    left: -10vh;
+#location-desc {
+    color: white;
+    font-size: 20px;
+    padding: 0 4em;
 }
 
-.carousel-control.right {
-    right: -10vh;
+.location-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    gap: 2em; /* Space between the boxes */
+    padding-top: 3em;
 }
+
+.location-box {
+    text-align: center;
+    background-color: white; /* Optional: Background color for each box */
+    padding: 1em;
+    border-radius: 8px;
+    color: #251F47;
+    max-width: 300px; /* Limit width if necessary */
+}
+
+.location-title {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Aligns icon and h2 vertically */
+    gap: 0.5em; /* Adjust spacing between icon and text */
+}
+
+.location-title h2 {
+    margin: 0; /* Remove any default margin from h2 */
+    font-size: 24px; /* Optional: Adjust font size */
+}
+
+.location-title i {
+    display: flex; /* Ensure icon aligns with text */
+}
+
+
+.location-box p{
+    color: #251F47;
+    font-size: 16px;
+
+}
+
+
+.footers {
+    background-color: #86CB92;
+    display: flex;
+    align-items: flex-start; 
+    gap: 10em; 
+    padding: 2em 3em;
+}
+
+#footer-title {
+    margin-right: 20px; 
+}
+
+/* footer */
+.footer-menu{
+    display: flex;
+    flex-direction: column; 
+}
+
+.footer-menu h3{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.footer-menu a {
+    text-decoration: none;
+    color:white;
+    font-size: 16px;
+}
+
+
+

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+    <script src="https://kit.fontawesome.com/f727d1933e.js" crossorigin="anonymous"></script>
 
     <title>AZoom Car Rental</title>
     <link rel="stylesheet" href="./style.css">
@@ -18,22 +18,11 @@
     <header id="header" class="hidden">
         <h1 id="title">AZoom Car Rental</h1>
         <nav class="nav">
-            <a href="#">Pricing</a>
-            <a href="#">Location</a>
-            <a href="#">Insurance</a>
-            <a href="#">About Us</a>
+            <a href="#car-type">EV Cars</a>
+            <a href="#location">Location</a>
+            <a href="login.html">Login</a>
         </nav>
     </header>
-
-    <!-- Side Navbar -->
-    <nav id="side-navbar" class="hidden">
-        <ul>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Location</a></li>
-            <li><a href="#">Insurance</a></li>
-            <li><a href="#">About Us</a></li>
-        </ul>
-    </nav>
 
     
     <!-- pages -->
@@ -43,40 +32,79 @@
             <img class="landing-bg" src="./assets/landing-bg.jpg" alt="">
             <h1>AZoom Car Rental</h1>
             <p>Book your EV with us — with just a simple click below</p>
-            <button type="button">Book Here</button>
+            <button type="button"  onclick="window.location.href='booking.html'">Book Here</button>
         </div>
 
         <!-- page 2 -->
         <div class="content">
 
 
-            <div class="car-type">
+            <div class="car-type" id="car-type">
                 <h1>Car Type</h1>
 
                 <div id="cardContainer"></div>
 
-
-                
-
-                
+                <!-- Global "This One" button below all cards -->
+                <button id="globalButton" class="global-button">Check Out More</button>
 
 
             </div>
             
-            <h2>Payment</h2>
-            <h2>About Us</h2>
-            <h2>Location</h2>
-            <h2>Insurance</h2>
-            <h2>How does this work</h2>
-            <h2>Review</h2>
+   
+            <div class="location" id="location"> 
+                <h1>Location</h1>
+                <p id="location-desc">Find us at two convenient locations in Singapore! 
+                    Located in the heart of Singapore, our branches in the <b>North</b> and <b>West</b> of the island are always ready for your call!
+                    Each branch offers full services, friendly staff, and easy access to public transport. 
+                    Stay tuned as we expand — more branches are coming soon!</p>
+            
+                <div class="location-container"> 
+                    <div class="location-box">
+                        <div class ="location-title"> 
+                            <i class='fas fa-map-marker-alt' style='font-size:20px;color:#71B48D '></i>
+                            <h2>North</h2>
+                        </div>
+                        <p>Address: 1 Woodlands Square, Singapore 738099</p>
+                        <p>Near MRT station and Causeway Point</p>
+                    </div>
+            
+                    <div class="location-box">
+                        <div class ="location-title"> 
+                            <i class='fas fa-map-marker-alt' style='font-size:20px;color:#71B48D '></i>
+                            <h2>West</h2>
+                        </div>
+                        <p>Address: 1 Jurong West Central 2, Singapore 648886</p>
+                        <p>Near MRT station and Jurong Point</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 
     <!-- Footer -->
     <footer>
-        <h1>Footer</h1>
-        <p>Our this and that, website, contact list, etc.</p>
+        <div class="footers">
+            <h1 id="footer-title">AZoom Car Rental</h1>
+    
+            <div class="footer-menu">
+                <h3>Company</h3>
+                <a href="#">Terms and Conditions</a>
+                <a href="#">Privacy Policies</a>
+                <a href="#">FAQ</a>
+                <a href="#">Help Centre</a>
+            </div>
+        
+            <div class="footer-menu">
+                <h3>Product</h3>
+                <a href="#">Introduction to EV</a>
+                <a href="#">Types of EV</a>
+                <a href="#location">Location</a>
+            </div>
+        </div>
+
     </footer>
+    
 
     <!-- Scroll event JavaScript -->
     <script>
@@ -91,7 +119,21 @@
         });
     </script>
 
-    
+    <!-- check login -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const isLoggedIn = localStorage.getItem("isLoggedIn");
+      
+          if (isLoggedIn === "true") {
+            // User is logged in
+            // Adjust UI accordingly (e.g., show user-specific links or welcome message)
+            console.log("User is logged in");
+          } else {
+            // User is not logged in
+            console.log("User is not logged in");
+          }
+        });
+      </script>
 
     <script src="index.js"></script>
 </body>

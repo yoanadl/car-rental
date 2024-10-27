@@ -52,88 +52,117 @@ title.addEventListener("mouseleave", function() {
 
 
 
-$(document).ready(function() {
-    // Activate Carousel
-    $("#myCarousel").carousel();
-    
-    // Generate carousel items dynamically from the cars array
-    const cars = [
+document.addEventListener("DOMContentLoaded", function () {
+    const cardData = [
         { 
-            name: "Car Type 1", 
-            type: "Compact City EV", 
-            msg: "Perfect for Your Daily Drives! Our compact EV is designed to get you through the city with ease, offering efficiency, low costs, and eco-friendly commuting"
+            title: "Tesla Model S", 
+            type: "BEV", 
+            d: "8.99",
+            w: "109.99",
+            m: "459.99",
+            link: "https://www.tesla.com/ownersmanual/images/GUID-5543BA62-932F-46C5-B1EF-44707D4726B2-online-en-US.png"
         },
         { 
-            name: "Car Type 2", 
-            type: "Long-Range EV", 
-            msg: "Built for the Long Haul! Our spacious EV is perfect for extended journeys, offering exceptional range, comfort, and advanced safety features to ensure you travel far with peace of mind and zero emissions" 
+            title: "Hyundai Sonata", 
+            type: "PHEV", 
+            d: "10.99",
+            w: "129.99",
+            m: "479.99",
+            link: "https://s7d1.scene7.com/is/image/hyundai/2024-sonata-n-line-serenity-white-conquest-hero:16-9?wid=640&hei=360&fmt=webp-alpha"
         },
         { 
-            name: "Car Type 3", 
-            type: "Family EV",
-            msg: "The Ideal Family EV! Designed with families in mind, our EV provides ample space, advanced safety systems, and kid-friendly features, ensuring comfortable and stress-free trips for everyone" 
-        }
+            title: "Toyota Prius", 
+            type: "HEV", 
+            d: "8.99",
+            w: "99.99",
+            m: "439.99",
+            link: "https://www.toyota.com.sg/showroom/new-models/-/media/4ec94a5afd6d4faab5973c826ef1770b.png"
+        },
     ];
-
-    // Reference to the carousel inner div
-    const carouselInner = $(".carousel-inner");
-    const cardDescription = document.getElementById("cardDescription");
     
-    // Loop through each car and create an item for the carousel
-    cars.forEach((car, index) => {
-        const isActive = index === 0 ? ' active' : ''; // Set the first item as active
-        
-        const imageUrl = `https://via.placeholder.com/1600x1200?text=${encodeURIComponent(car.name)}`;
+    const cardContainer = document.getElementById("cardContainer");
+    let selectedCard = null; // No card selected initially
+    const globalButton = document.getElementById("globalButton");
+    globalButton.disabled = true; // Disabled by default
 
-        const itemHtml = `
-            <div class="item${isActive}">
-                    <img src="${imageUrl}" alt="${car.name}" >                
-                    <div class="carousel-caption">
-                    <h3>${car.name}</h3>
-                </div>
-            </div>
-        `;
+    // Clear previous selection (if any) from localStorage on page load
+    localStorage.removeItem("selectedCard");
 
-        carouselInner.append(itemHtml);
+    // Function to create a card
+    function createCard(card) {
+        const cardElement = document.createElement("div");
+        cardElement.className = "card";
+        cardElement.dataset.cardInfo = JSON.stringify(card); // Store card info in dataset
 
-        if (isActive) {
-            cardDescription.textContent = car.msg; 
-        }    
-    });
+        const titleElement = document.createElement("div");
+        titleElement.className = "card-title";
+        titleElement.innerText = card.title;
+        cardElement.appendChild(titleElement);
 
-    function updateDescription() {
-        const activeIndex = $(".carousel-inner .item.active").index(); // Get index of active item
-        cardDescription.textContent = cars[activeIndex].msg; // Update the message
+        const imageElement = document.createElement("img");
+        imageElement.className = "card-image";
+        imageElement.src = card.link;
+        imageElement.alt = card.title;
+        cardElement.appendChild(imageElement);
+
+        const typeElement = document.createElement("div");
+        typeElement.className = "card-type";
+        typeElement.innerText = "Type: " + card.type;
+        cardElement.appendChild(typeElement);
+
+        cardElement.addEventListener("click", () => {
+            if (selectedCard !== null) {
+                selectedCard.classList.remove("selected");
+            }
+            cardElement.classList.add("selected");
+            selectedCard = cardElement;
+            
+            // Enable globalButton only after a card is selected
+            globalButton.disabled = false;
+        });
+
+        cardContainer.appendChild(cardElement);
     }
 
-    // Initial description update
-    updateDescription();
+    // Generate cards
+    cardData.forEach(createCard);
 
-    // Update description on carousel slide change
-    $('#myCarousel').on('slid.bs.carousel', function() {
-        updateDescription(); // Call the update function
-    });
+    // Click event for the global button
+    globalButton.addEventListener("click", () => {
+        if (selectedCard !== null) { 
+            const selectedCardInfo = JSON.parse(selectedCard.dataset.cardInfo);
+            localStorage.setItem("selectedCard", JSON.stringify(selectedCardInfo));
 
-    
+            window.location.href = 'booking.html';
+        } else {
+            alert("Please select a car before proceeding.");
+        }
+    });
+});
 
-    // Enable Carousel Indicators
-    $(".item1").click(function() {
-        $("#myCarousel").carousel(0);
-    });
-    $(".item2").click(function() {
-        $("#myCarousel").carousel(1);
-    });
-    $(".item3").click(function() {
-        $("#myCarousel").carousel(2);
-    });
+// login logout
 
-    // Enable Carousel Controls
-    $(".left").click(function(event) {
-        event.preventDefault();
-        $("#myCarousel").carousel("prev");
-    });
-    $(".right").click(function() {
-        event.preventDefault();
-        $("#myCarousel").carousel("next");
-    });
+function loginUser() {
+    localStorage.setItem("isLoggedIn", "true"); // Set login state in local storage
+    window.location.reload(); // Refresh the page to reflect login status
+}
+
+// Function to simulate logout (for demo purposes)
+function logoutUser() {
+    localStorage.removeItem("isLoggedIn"); // Remove login state from local storage
+    window.location.reload(); // Refresh the page to reflect logout status
+}
+
+// Check login status on page load
+document.addEventListener("DOMContentLoaded", function() {
+    var isLoggedIn = localStorage.getItem("isLoggedIn"); // Check if user is logged in
+    var loginLink = document.querySelector("a[href='login.html']");
+
+    if (isLoggedIn === "true") {
+        loginLink.textContent = "Logout"; // Change "Login" to "Logout"
+        loginLink.href = "#"; // Prevent navigating to login page
+        loginLink.onclick = logoutUser; // Call logout function on click
+    } else {
+        loginLink.onclick = loginUser; // Call login function on click
+    }
 });

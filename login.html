@@ -16,7 +16,7 @@
       justify-content: center;
       align-items: center;
       font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
+      background-color: #251F47;
     }
     .login-container {
       width: 300px;
@@ -83,8 +83,8 @@
     
     // Allowed users
     const allowedUsers = [
-      { email: "steven@mail.com", password: "steven123" },
-      { email: "admin@mail.com", password: "admin123" }
+      { email: "steven@mail.com", password: "steven123", role: "user" },
+      { email: "admin@mail.com", password: "admin123", role: "admin" }
     ];
     
     // Check if user exists
@@ -94,13 +94,31 @@
       message.textContent = "Login successful!";
       message.classList.remove('error-message');
       message.classList.add('success-message');
-      // Additional action like redirection can go here
+      
+      // Set login state in local storage
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("loggedInUser", email); // Optional: save user's email
+      localStorage.setItem("userRole", user.role); // Store user role
+
+      // Redirect based on user role
+      const redirectPage = user.role === "admin" ? "admin_dashboard.html" : "index.html";
+      
+      setTimeout(() => {
+        window.location.href = redirectPage; // Redirect to the appropriate page
+      }, 1000); // Delay to show success message
     } else {
       message.textContent = "Invalid email or password.";
       message.classList.remove('success-message');
       message.classList.add('error-message');
     }
   }
+
+  document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            // Simulate login logic here
+            localStorage.setItem("isLoggedIn", "true");
+            window.location.href = 'booking.html'; // Redirect to the booking page
+        });
 </script>
 
 </body>

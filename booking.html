@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Page</title>
+    <link rel="stylesheet" href="./booking.css">
+</head>
+<body>
+
+    <h1>Booking</h1>
+    <div id="car-catalogue">
+        <h3>Type</h3>
+        <div id="catalogContainer"></div> 
+    </div>
+    
+
+    <div id="rental-period">
+        <h3>Rental Period</h3>
+        <div id="radio-button">
+            <label><input type="radio" name="frequency" value="daily" checked> Daily</label>
+            <label><input type="radio" name="frequency" value="weekly"> Weekly</label>
+            <label><input type="radio" name="frequency" value="monthly"> Monthly</label>
+        </div>
+    </div>
+    
+
+
+    <div id="selectedCardDetails"></div>
+
+
+    
+
+
+
+
+    
+    <div id="loginModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" id="modalClose">&times;</span>
+            <p>You need to log in first.</p>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button id="confirmButton">Confirm Booking</button>
+    </div>
+    
+
+
+    <script src="booking.js"></script>
+
+</body>
+</html>
