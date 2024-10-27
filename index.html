@@ -53,17 +53,7 @@
             <div class="car-type">
                 <h1>Car Type</h1>
 
-                <div class="carousel-container">
-                    <button id="prevBtn" class="carousel-nav">Previous</button>
-                    <div id="cardCarousel" class="carousel">
-                      <!-- Cards will be generated dynamically here -->
-                    </div>
-                    <button id="nextBtn" class="carousel-nav">Next</button>
-                  </div>
-                  
-                  <!-- Global "This One" button below all cards -->
-                  <button id="globalButton" class="global-button">This One</button>
-                  
+                <div id="cardContainer"></div>
 
 
                 
@@ -101,33 +91,7 @@
         });
     </script>
 
-    <!-- Script to generate cards dynamically -->
-    <script>
-        // Array containing card data
-        const people = [
-            { name: "Person 1", job: "Job Title 1" },
-            { name: "Person 2", job: "Job Title 2" },
-            { name: "Person 3", job: "Job Title 3" }
-        ];
-
-        // Function to generate cards dynamically
-        const cardContainer = document.getElementById('cardContainer');
-
-        people.forEach(person => {
-            const card = document.createElement('div');
-            card.classList.add('card');
-
-            card.innerHTML = `
-                <div class="card-border-top"></div>
-                <div class="img"></div>
-                <span>${person.name}</span>
-                <p class="job">${person.job}</p>
-                <button>Click</button>
-            `;
-
-            cardContainer.appendChild(card);
-        });
-    </script>
+    
 
     <script src="index.js"></script>
 </body>
