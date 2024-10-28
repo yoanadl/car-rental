@@ -81,60 +81,27 @@ header h1 {
     font-size: 36px;
     color: white;
     padding: 0 50px 10px 0;
-    cursor: pointer; /* Show pointer on hover */
 }
 
 header nav {
     display: flex;
 }
 
-
-
 header nav a {
     font-size: 1.45em;
     font-weight: 600;
     margin-left: 15px;
-    /* padding: 5px 8px; */
     text-decoration: none;
     color: #71B48D;
     position: relative;
 }
+
 
 header nav a:first-child{
     margin-left: 0;
     padding: 0px;
 }
 
-/* Style for the side navbar */
-#side-navbar {
-    position: fixed; /* Fixed position to stay on the screen */
-    top: 70px; /* Adjust based on header height */
-    left: 0; /* Align to the left */
-    background-color: #333; /* Background color */
-    color: white;
-    display: none; /* Initially hidden */
-    z-index: 1000; /* Ensure it's above other elements */
-    padding: 10px; /* Padding around links */
-}
-
-#side-navbar ul {
-    list-style: none;
-    padding: 0;
-}
-
-#side-navbar ul li {
-    padding: 10px 0; /* Padding for list items */
-}
-
-#side-navbar ul li a {
-    color: white; /* Link color */
-    text-decoration: none; /* Remove underline */
-}
-
-/* Show navbar when hovering over the title */
-#title:hover + #side-navbar {
-    display: block; /* Show the navbar */
-}
 
 /* Media Queries */
 @media (max-width: 768px) {
@@ -288,8 +255,8 @@ header nav a:first-child{
   }
 
   .card.selected {
-    box-shadow: 1px 5px 30px 1px #86CB92; /* Apply shadow color when selected */
-    border: 1px solid #86CB92; /* Optional: add a border to highlight selection */
+    box-shadow: 1px #86CB92; /* Apply shadow color when selected */
+    border: 4px solid #86CB92; /* Optional: add a border to highlight selection */
 }
 
   /* Single "This One" button below all cards */
@@ -384,6 +351,7 @@ header nav a:first-child{
 
 #footer-title {
     margin-right: 20px; 
+    font-weight: bold;
 }
 
 /* footer */

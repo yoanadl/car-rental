@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        /* Basic styling for the dashboard */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .review-container {
+            background-color: white; /* Background color of the review container */
+            padding: 20px; /* Padding around the content */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            margin-bottom: 20px; /* Space below the review section */
+            border: 1px solid #e0e0e0; /* Light border for better definition */
+        }
+
+        .review-container h2 {
+            margin-top: 0; /* Remove default margin on top */
+            color: #333; /* Darker text color for better readability */
+            font-size: 1.5em; /* Font size for the section title */
+        }
+
+        .form-group {
+            margin-bottom: 15px; /* Space between form groups */
+        }
+
+        .form-group label {
+            display: block; /* Block display for labels */
+            margin-bottom: 5px; /* Space between label and input */
+            font-weight: bold; /* Bold label for emphasis */
+            color: #555; /* Slightly lighter color for the label */
+        }
+
+
+        .form-group input,
+        .form-group textarea {
+            width: 90%; /* Full width for input and textarea */
+            padding: 10px; /* Padding inside input and textarea */
+            border: 1px solid #ccc; /* Light gray border */
+            border-radius: 4px; /* Rounded corners for input fields */
+            font-size: 1em; /* Font size for inputs */
+            transition: border-color 0.3s; /* Smooth transition for border color */
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #007bff; /* Change border color on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        button {
+            background-color: #007bff; /* Blue background for buttons */
+            color: white; /* White text color */
+            padding: 10px 15px; /* Padding around button text */
+            border: none; /* Remove border */
+            border-radius: 4px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 1em; /* Font size for button text */
+            transition: background-color 0.3s; /* Smooth transition for background color */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .btn-logout {
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #dc3545; /* Bootstrap red color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left: 10px; /* Space between buttons */
+        }
+
+        .btn-logout:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+
+
+    </style>
+</head>
+
+<header>
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+        <h1 style="margin-right: 20px;">Admin Dashboard</h1>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+</header>
+
+<body>
+    <h2>All Bookings</h2>
+    <div id="allBookings"></div>
+
+    <h2>Add Review and Damage Charge</h2>
+    <div class="review-container">
+        <div class="form-group">
+            <label for="bookingIndex">Select Booking Index (0 for first booking, etc.):</label>
+            <input type="number" id="bookingIndex" placeholder="Enter booking index" min="0" required>
+        </div>
+        <div class="form-group">
+            <label for="review">Review:</label>
+            <textarea id="review" placeholder="Enter your review" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="damageCharge">Damage Charge ($):</label>
+            <input type="number" id="damageCharge" placeholder="Enter damage charge" min="0" required>
+        </div>
+        <button onclick="addReview()">Submit Review</button>
+
+        <!-- <div>
+            <button onclick="deleteAllBookings()">Delete All Bookings</button>
+        </div> -->
+        
+    </div>
+
+    <script>
+        function displayAllBookings() {
+            const bookingsContainer = document.getElementById("allBookings");
+            bookingsContainer.innerHTML = ""; // Clear existing content
+            
+            // Get all bookings from local storage
+            const allBookings = JSON.parse(localStorage.getItem("allBookings")) || [];
+            console.log("All Bookings:", allBookings); // Debugging line to check stored bookings
+
+            if (allBookings.length > 0) {
+                allBookings.forEach((booking, index) => {
+                    const bookingDiv = document.createElement("div");
+                    bookingDiv.className = "booking-container";
+                    bookingDiv.innerHTML = `
+                        <p>Index: <strong>${index}</strong></p>
+                        <p>Car: <strong>${booking.car}</strong></p>
+                        <p>Rental Period: <strong>${booking.frequency}</strong></p>
+                        <p>Price: <strong>$${booking.price}</strong></p>
+                        <p>Location: <strong>${booking.location}</strong></p>
+                        <p>Status: <strong>${booking.status}</strong></p>
+                        <p>Payment Status: <strong>${booking.payment}</strong></p>
+                        <p>Review: <strong>${booking.review || "No review yet."}</strong></p>
+                        <p>Damage Charge: <strong>$${booking.damageCharge || "0"}</strong></p>
+                    `;
+                    bookingsContainer.appendChild(bookingDiv);
+                });
+            } else {
+                bookingsContainer.innerHTML = "<p>No bookings available.</p>";
+            }
+        }
+
+        function addReview() {
+            const bookingIndex = document.getElementById("bookingIndex").value;
+            const review = document.getElementById("review").value;
+            const damageCharge = parseFloat(document.getElementById("damageCharge").value);
+            const allBookings = JSON.parse(localStorage.getItem("allBookings")) || [];
+
+            // Validate index and ensure it is a number
+            if (isNaN(bookingIndex) || bookingIndex < 0 || bookingIndex >= allBookings.length) {
+                alert("Please enter a valid booking index.");
+                return;
+            }
+
+            // Update review and damage charge for the selected booking
+            allBookings[bookingIndex].review = review;
+            allBookings[bookingIndex].damageCharge = damageCharge;
+
+            // Update the payment status based on damage charge
+            allBookings[bookingIndex].payment = "Due"; // Assuming payment is due due to damage
+
+            // Update total price: this includes the original price and the damage charge
+            const originalPrice = parseFloat(allBookings[bookingIndex].price);
+            allBookings[bookingIndex].price = (originalPrice + damageCharge).toFixed(2); // Ensure two decimal places for currency format
+
+            // Save updated bookings back to local storage
+            localStorage.setItem("allBookings", JSON.stringify(allBookings));
+
+            // Refresh the booking display
+            displayAllBookings();
+
+            // Clear input fields
+            document.getElementById("bookingIndex").value = "";
+            document.getElementById("review").value = "";
+            document.getElementById("damageCharge").value = "";
+        }
+
+        function logout() {
+            window.location.href = "index.html"; 
+        }
+
+
+        function deleteAllBookings() {
+            // Confirm with the user if they really want to delete all bookings
+            const confirmDelete = confirm("Are you sure you want to delete all bookings? This action cannot be undone.");
+            
+            if (confirmDelete) {
+                // Clear all bookings from local storage
+                localStorage.removeItem("allBookings");
+
+                // Optionally refresh the display or notify the user
+                alert("All bookings have been deleted.");
+
+                // Refresh the booking display (you can customize this to your needs)
+                displayAllBookings(); // Make sure this function clears the display
+            }
+        }
+
+
+        // Run the function when the page loads
+        document.addEventListener("DOMContentLoaded", displayAllBookings);
+    </script>
+    
+</body>
+</html>

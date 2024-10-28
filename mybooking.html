@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Booking</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
+
+        * {
+            font-family: 'Afacad Flux', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Header styling */
+        header {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+        }
+
+        /* Button styling */
+        .btn-back {
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #404E7C;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background-color: #333a5a;
+        }
+
+        /* Sidebar button styling */
+        .sidebar {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar button {
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #404E7C;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar button:hover {
+            background-color: #333a5a;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 72px;
+            color: #404E7C;
+            margin: 1em;
+        }
+
+        #bookings {
+            background-color: #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+        }
+
+        .booking-details {
+            width: 90%;
+            max-width: 500px;
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+            flex: 2;
+        }
+
+        .booking-details p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        /* Styling for the dropdown and button container */
+        .actions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+            padding-left: 1em;
+        }
+
+        .actions-container p {
+            margin: 1em;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        }
+
+        /* Modal content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 400px; 
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-content button, p {
+            margin: 4px 0;
+        }
+
+        /* Close button for modal */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<header>
+    <button class="btn-back" onclick="goBack()">Back to Homepage</button>
+</header>
+
+<body>
+
+    <h1>My Booking</h1>
+
+    <div class="sidebar">
+        <button onclick="showOngoing()">Ongoing</button>
+        <button onclick="showPast()">Past Booking</button>
+    </div>
+    
+    <!-- Main bookings container -->
+    <div id="bookings">
+        <div id="bookingDetails" class="booking-details"></div>
+        <div class="actions-container">
+            <p>Return Location</p>
+            <select id="options" name="options">
+                <option value="location1">EV Park 1</option>
+                <option value="location2">EV Park 2</option>
+                <option value="location3">EV Park 3</option>
+            </select>
+            <button onclick="openModal()">Return</button>
+        </div>
+    </div>
+    
+    <!-- Modal for confirmation -->
+    <div id="returnModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Return Car</h2>
+            <p>Are you sure you want to return this car?</p>
+            <button id="confirmReturnButton" onclick="confirmReturn()">Yes</button>
+            <button onclick="closeModal()">No</button>
+        </div>
+    </div>
+    
+    <script>
+        function showOngoing() {
+            const allBookings = JSON.parse(localStorage.getItem("allBookings")) || [];
+            const ongoingBookings = allBookings.filter(booking => booking.status === "Ongoing");
+            const bookingsDiv = document.getElementById("bookings");
+
+            if (ongoingBookings.length > 0) {
+                bookingsDiv.innerHTML = ongoingBookings.map(booking => `
+                    <div class="booking-details">
+                        <p>Car Selected: <strong>${booking.car}</strong></p>
+                        <p>Rental Period: <strong>${booking.frequency.charAt(0).toUpperCase() + booking.frequency.slice(1)}</strong></p>
+                        <p>Price: <strong>$${booking.price}</strong></p>
+                        <p>Location: <strong>${booking.location}</strong></p>
+                    </div>
+                `).join('') + `
+                    <div class="actions-container">
+                        <p>Return Location</p>
+                        <select id="options" name="options">
+                            <option value="location1">EV Park 1</option>
+                            <option value="location2">EV Park 2</option>
+                            <option value="location3">EV Park 3</option>
+                        </select>
+                        <button onclick="openModal()">Return</button>
+                    </div>
+                `;
+            } else {
+                bookingsDiv.innerHTML = `<p>No ongoing bookings found.</p>`;
+            }
+        }
+
+        function showPast() {
+            const allBookings = JSON.parse(localStorage.getItem("allBookings")) || [];
+            const pastBookings = allBookings.filter(booking => booking.status === "Past");
+            const bookingsDiv = document.getElementById("bookings");
+            let output = '';
+
+            if (pastBookings.length > 0) {
+                output = pastBookings.map(booking => {
+                    let paymentColor;
+                    switch (booking.payment) {
+                        case "Paid":
+                            paymentColor = "blue"; 
+                            break;
+                        case "Under Review":
+                            paymentColor = "grey"; 
+                            break;
+                        case "Due":
+                            paymentColor = "red"; 
+                            break;
+                        default:
+                            paymentColor = "black"; 
+                    }
+                    return `
+                        <div class="booking-details">
+                            <p>Car Selected: <strong>${booking.car}</strong></p>
+                            <p>Rental Period: <strong>${booking.frequency}</strong></p>
+                            <p>Price: <strong>$${booking.price}</strong></p>
+                            <p>Location: <strong>${booking.location}</strong></p>
+                            <p style="color: ${paymentColor};">Payment: <strong>${booking.payment}</strong></p>
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                output = `<p>No past bookings available.</p>`;
+            }
+
+            bookingsDiv.innerHTML = output;
+        }
+
+        function openModal() {
+            document.getElementById("returnModal").style.display = "block"; // Show the modal
+        }
+
+        function closeModal() {
+            document.getElementById("returnModal").style.display = "none"; // Hide the modal
+        }
+
+
+        function confirmReturn() {
+            console.log("Confirm button clicked");
+
+            let allBookings = JSON.parse(localStorage.getItem("allBookings")) || [];
+
+            // Check if there are any bookings
+            if (allBookings.length === 0) {
+                console.error("No bookings available to update.");
+                alert("There are no bookings to return.");
+                closeModal();
+                return; // Exit the function if there are no bookings
+            }
+
+            // Find the last ongoing booking to update
+            let bookingToUpdate = allBookings.find(booking => booking.status === "Ongoing");
+
+            if (bookingToUpdate) {
+                // Update the booking's status and payment status
+                bookingToUpdate.status = "Past";
+                bookingToUpdate.payment = "Under Review";
+
+                // Save the updated bookings array back to local storage
+                localStorage.setItem("allBookings", JSON.stringify(allBookings));
+
+                // Close the modal
+                closeModal();
+
+                // Refresh the display to show past bookings
+                showPast(); // Ensure that this function correctly updates the UI
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Call showOngoing to display initial bookings
+            showOngoing();
+        });
+
+    
+        function goBack() {
+            window.location.href = "index.html";
+        }
+    </script>
+    
+    </body>
+    </html>

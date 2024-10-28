@@ -153,16 +153,22 @@ function logoutUser() {
     window.location.reload(); // Refresh the page to reflect logout status
 }
 
-// Check login status on page load
 document.addEventListener("DOMContentLoaded", function() {
-    var isLoggedIn = localStorage.getItem("isLoggedIn"); // Check if user is logged in
+    var isLoggedIn = localStorage.getItem("isLoggedIn"); 
     var loginLink = document.querySelector("a[href='login.html']");
+    var extraMenu = document.getElementById("extraMenu");
 
     if (isLoggedIn === "true") {
-        loginLink.textContent = "Logout"; // Change "Login" to "Logout"
-        loginLink.href = "#"; // Prevent navigating to login page
-        loginLink.onclick = logoutUser; // Call logout function on click
+        loginLink.textContent = "Logout";
+        loginLink.href = "#"; 
+        loginLink.onclick = logoutUser; 
+
+        // Create and add an extra menu item
+        var profileLink = document.createElement("a");
+        profileLink.href = "mybooking.html";
+        profileLink.textContent = "My Booking";
+        extraMenu.appendChild(profileLink); // Add to extraMenu
     } else {
-        loginLink.onclick = loginUser; // Call login function on click
+        loginLink.onclick = loginUser; 
     }
 });

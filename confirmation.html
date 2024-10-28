@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Afacad Flux';
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+        }
+
+        body {
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+            font-family: 'Afacad Flux', sans-serif;
+        }
+
+        .confirmation-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 500px;
+            margin: auto;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1, h2 {
+            font-size: 72px;
+            color: #404E7C;
+            text-align: center;
+            margin: 0.5em;
+        }
+
+        h3 {
+            align-items: start;
+            margin: 1em; 
+        }
+
+        .booking-details, .payment {
+            width: 100%;
+            max-width: 500px; 
+            background-color: #f0f0f0;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        
+        .payment {
+            flex: 1; 
+            border: 1px solid #404E7C; 
+            border-radius: 10px; 
+            margin-bottom: 20px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 15px;
+            text-align: left;
+            padding: 0 1em;
+        }
+        
+        label {
+            display: block;
+            font-size: 1em;
+            margin-bottom: 5px;
+            color: #555;
+            width: 100%;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .btn-pay {
+            width: 80%;
+            padding: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 15px;
+        }
+
+        .btn-pay:hover {
+            background-color: #218838;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-size: 1.1em;
+            color: red;
+        }
+
+        .success {
+            color: #28a745;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>Booking Confirmation</h2>
+
+    <div class="confirmation-container">
+
+        <div id="bookingDetails" class="booking-details"></div>
+
+        <h3>Complete Your Payment</h3>
+
+        <div class="payment">
+            <div class="form-group">
+                <label for="cardName">Cardholder Name</label>
+                <input type="text" id="cardName" placeholder="Enter cardholder name">
+            </div>
+
+            <div class="form-group">
+                <label for="cardNumber">Card Number</label>
+                <input type="text" id="cardNumber" placeholder="Enter card number" maxlength="16">
+            </div>
+
+            <div class="form-group">
+                <label for="expiryDate">Expiry Date (MM/YY)</label>
+                <input type="text" id="expiryDate" placeholder="MM/YY">
+            </div>
+
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="password" id="cvv" placeholder="CVV" maxlength="3">
+            </div>
+
+            <button class="btn-pay" onclick="completePayment()">Pay Now</button>
+            <div id="message" class="message"></div>
+        </div>
+
+    </div>
+
+    <script>
+        const bookingDetails = JSON.parse(localStorage.getItem("bookingDetails"));
+        const bookingDetailsDiv = document.getElementById("bookingDetails");
+
+        if (bookingDetails) {
+            bookingDetailsDiv.innerHTML = `
+                <p>Car Selected: <strong>${bookingDetails.car}</strong></p>
+                <p>Rental Period: <strong>${bookingDetails.frequency.charAt(0).toUpperCase() + bookingDetails.frequency.slice(1)}</strong></p>
+                <p>Price: <strong>$${bookingDetails.price}</strong></p>
+                <p>Location: <strong>${bookingDetails.location}</strong></p>
+            `;
+        } else {
+            bookingDetailsDiv.innerHTML = `<p>Booking information is missing.</p>`;
+        }
+
+        function completePayment() {
+            const cardName = document.getElementById('cardName').value;
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+            const messageDiv = document.getElementById("message");
+
+            messageDiv.textContent = '';
+            messageDiv.className = 'message';
+
+            // Validate input fields
+            if (!cardName || !cardNumber || !expiryDate || !cvv) {
+                messageDiv.textContent = "Please fill in all fields.";
+                messageDiv.className = 'message';
+                return;
+            }
+
+            const cardNumberRegex = /^\d{16}$/;
+            if (!cardNumberRegex.test(cardNumber)) {
+                messageDiv.textContent = "Please enter a valid 16-digit card number.";
+                messageDiv.className = 'message';
+                return;
+            }
+
+            const expiryDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+            if (!expiryDateRegex.test(expiryDate)) {
+                messageDiv.textContent = "Please enter a valid expiry date (MM/YY).";
+                messageDiv.className = 'message';
+                return;
+            }
+
+            const cvvRegex = /^\d{3}$/;
+            if (!cvvRegex.test(cvv)) {
+                messageDiv.textContent = "Please enter a valid 3-digit CVV.";
+                messageDiv.className = 'message';
+                return;
+            }
+
+            // Retrieve booking details from localStorage
+            const bookingDetails = JSON.parse(localStorage.getItem("bookingDetails"));
+
+            // Ensure bookingDetails exist before proceeding
+            if (bookingDetails) {
+                // Create an updated booking details object
+                const updatedBookingDetails = {
+                    car: bookingDetails.car, 
+                    frequency: bookingDetails.frequency, 
+                    price: bookingDetails.price, 
+                    location: bookingDetails.location, 
+                    status: "Ongoing", // Setting status as ongoing after payment
+                    payment: "Default"  // Set default payment status
+                };
+
+                // Retrieve existing bookings from localStorage or initialize an empty array
+                const allBookings = JSON.parse(localStorage.getItem("allBookings")) || [];
+
+                // Add the new booking to the array
+                allBookings.push(updatedBookingDetails);
+
+                // Save updated bookings array back to local storage
+                localStorage.setItem("allBookings", JSON.stringify(allBookings));
+
+                // Simulate successful payment processing
+                messageDiv.textContent = "Payment processed successfully!";
+                messageDiv.className = 'message success';
+
+                // Redirect to mybooking.html after a successful payment
+                setTimeout(() => {
+                    window.location.href = "mybooking.html"; // Adjust the URL if needed
+                }, 2000); // Redirect after 2 seconds for a better user experience
+            } else {
+                // Handle the case where no booking details are found
+                messageDiv.textContent = "No booking details found.";
+                messageDiv.className = 'message error'; // Optionally set an error message class
+            }
+        }
+    </script>
+
+</body>
+
+</html>
